@@ -25,9 +25,9 @@
           if (file.match(/\.(js|css)$/)) { %>
     <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
   </head>
   <body>
+    <script type="text/javascript" src="static/ace/ace.js"></script>
     <noscript>
       This is your fallback content in case JavaScript fails to load.
     </noscript>

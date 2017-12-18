@@ -20,6 +20,11 @@ export default {
     editor.$blockScrolling = Infinity;
     editor.setShowPrintMargin(false);
     editor.setShowFoldWidgets(false);
+
+    // insert content
+    editSession.setValue(content);
+
+    editor.focus();
   }
 };
 </script>

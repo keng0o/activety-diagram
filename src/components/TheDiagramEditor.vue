@@ -11,6 +11,15 @@ import content from "src/config/content";
 
 export default {
   name: "the-diagram-editor",
+  data() {
+    return {
+      slugCache: {},
+      tableOfContent: [],
+      lines: 0,
+      words: 0,
+      content: "",
+    };
+  },
   mounted() {
     const editor = ace.edit(this.$refs.editor);
     const editSession = editor.getSession();
@@ -21,8 +30,18 @@ export default {
     editor.setShowPrintMargin(false);
     editor.setShowFoldWidgets(false);
 
+    // editor session options
+    editSession.setMode("ace/mode/markdown");
+    editSession.setUseWrapMode(true);
+
     // insert content
     editSession.setValue(content);
+
+    editSession.on("change", () => {
+      this.content = editSession.getValue();
+      this.lines = this.editSession.getLength();
+      this.words = content.replace(/\s*/g, "").length;
+    });
 
     editor.focus();
   }

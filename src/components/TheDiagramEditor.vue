@@ -3,23 +3,33 @@
     <!-- Edit -->
     <div class="editor is-side"
       ref="editor" />
+    <!-- BottomBar -->
+    <bottom-bar :lines="lines"
+      :words="words" />
+
   </div>
 </template>
 
 <script>
 import content from "src/config/content";
+import BottomBar from "src/components/BottomBar";
 
 export default {
   name: "the-diagram-editor",
+  components: {
+    BottomBar
+  },
+
   data() {
     return {
       slugCache: {},
       tableOfContent: [],
       lines: 0,
       words: 0,
-      content: "",
+      content: ""
     };
   },
+
   mounted() {
     const editor = ace.edit(this.$refs.editor);
     const editSession = editor.getSession();
@@ -29,21 +39,26 @@ export default {
     editor.$blockScrolling = Infinity;
     editor.setShowPrintMargin(false);
     editor.setShowFoldWidgets(false);
+    editor.focus();
 
-    // editor session options
     editSession.setMode("ace/mode/markdown");
     editSession.setUseWrapMode(true);
 
-    // insert content
     editSession.setValue(content);
+    // editSession.onChange()
+
+    this.lines = editSession.getLength();
+    this.words = content.replace(/\s*/g, "").length;
 
     editSession.on("change", () => {
       this.content = editSession.getValue();
-      this.lines = this.editSession.getLength();
+      this.lines = editSession.getLength();
       this.words = content.replace(/\s*/g, "").length;
     });
 
-    editor.focus();
+    editSession.on("changeScrollTop", scrollTop => {
+      console.log("changeScrollTop");
+    });
   }
 };
 </script>

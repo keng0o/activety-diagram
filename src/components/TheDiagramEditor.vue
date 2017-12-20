@@ -3,6 +3,8 @@
     <!-- Edit -->
     <div class="editor is-side"
       ref="editor" />
+    <!-- Preview  -->
+    <preview :content="content" />
     <!-- BottomBar -->
     <bottom-bar :lines="lines"
       :words="words" />
@@ -12,18 +14,19 @@
 
 <script>
 import content from "src/config/content";
+
+import Preview from "src/components/Preview";
 import BottomBar from "src/components/BottomBar";
 
 export default {
   name: "the-diagram-editor",
   components: {
+    Preview,
     BottomBar
   },
 
   data() {
     return {
-      slugCache: {},
-      tableOfContent: [],
       lines: 0,
       words: 0,
       content: ""
@@ -44,12 +47,6 @@ export default {
     editSession.setMode("ace/mode/markdown");
     editSession.setUseWrapMode(true);
 
-    editSession.setValue(content);
-    // editSession.onChange()
-
-    this.lines = editSession.getLength();
-    this.words = content.replace(/\s*/g, "").length;
-
     editSession.on("change", () => {
       this.content = editSession.getValue();
       this.lines = editSession.getLength();
@@ -57,8 +54,10 @@ export default {
     });
 
     editSession.on("changeScrollTop", scrollTop => {
-      console.log("changeScrollTop");
+      // console.log("changeScrollTop");
     });
+
+    editSession.setValue(content);
   }
 };
 </script>

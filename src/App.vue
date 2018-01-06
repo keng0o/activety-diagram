@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
     <main>
       <router-view></router-view>
     </main>
@@ -11,6 +8,6 @@
 
 <script>
 export default {
-  name: 'app',
+  name: "app"
 };
 </script>

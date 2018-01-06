@@ -1,9 +1,11 @@
-import { mount } from 'vue-test-utils';
+import { shallow, createLocalVue } from 'vue-test-utils';
 import Hello from '../src/components/Hello.vue';
+const localVue = createLocalVue();
 
 describe('Hello component', () => {
-	const wrapper = mount(Hello, {
-        propsData: {}
+	const wrapper = shallow(Hello, {
+        propsData: {},
+        localVue
     });
     it('default msg is Welcome to Your Vue.js PWA', () => {
         expect(wrapper.vm.msg).toEqual('Welcome to Your Vue.js PWA');

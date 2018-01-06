@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Editor component render 1`] = `"<div class=\\"editor-container\\"><div class=\\"editor-toolbar is-side\\"></div> <!----> <div class=\\"editor is-side\\"></div> <div class=\\"editor-preview is-side\\"></div> <div class=\\"toc-preview\\" style=\\"display: none;\\"><!----></div> <div class=\\"html-code-preview\\" style=\\"display: none;\\"><textarea readonly=\\"readonly\\"></textarea></div></div>"`;

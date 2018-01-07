@@ -44,7 +44,7 @@ export default {
     editor.setShowFoldWidgets(false);
     editor.focus();
 
-    editSession.setMode("ace/mode/markdown");
+    editSession.setMode("ace/mode/dot");
     editSession.setUseWrapMode(true);
 
     editSession.on("change", () => {

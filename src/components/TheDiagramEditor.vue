@@ -4,7 +4,9 @@
     <div class="editor is-side"
       ref="editor" />
     <!-- Preview  -->
-    <preview :content="content" />
+    <div class="preview is-side"
+      ref="svg" />
+
     <!-- BottomBar -->
     <bottom-bar :lines="lines"
       :words="words" />
@@ -14,14 +16,11 @@
 
 <script>
 import content from "src/config/content";
-
-import Preview from "src/components/Preview";
 import BottomBar from "src/components/BottomBar";
 
 export default {
   name: "the-diagram-editor",
   components: {
-    Preview,
     BottomBar
   },
 
@@ -29,13 +28,14 @@ export default {
     return {
       lines: 0,
       words: 0,
-      content: ""
+      svg: null
     };
   },
 
   mounted() {
     const editor = ace.edit(this.$refs.editor);
     const editSession = editor.getSession();
+    const parser = new DOMParser();
 
     // editor options
     editor.setTheme("ace/theme/chrome");
@@ -48,9 +48,24 @@ export default {
     editSession.setUseWrapMode(true);
 
     editSession.on("change", () => {
-      this.content = editSession.getValue();
+      const str = editSession.getValue();
       this.lines = editSession.getLength();
-      this.words = content.replace(/\s*/g, "").length;
+      this.words = str.replace(/\s*/g, "").length;
+      const result = Viz(str);
+      if (!result) {
+        return;
+      }
+
+      this.svg = parser.parseFromString(
+        result,
+        "image/svg+xml"
+      ).documentElement;
+      this.svg.id = "svg_output";
+      var svg = this.$refs.svg.querySelector("svg");
+      if (svg) {
+        this.$refs.svg.removeChild(svg);
+      }
+      this.$refs.svg.appendChild(this.svg);
     });
 
     editSession.on("changeScrollTop", scrollTop => {
@@ -78,5 +93,61 @@ export default {
   border-bottom: 0;
   border-top-width: 0;
   border-left-width: 0;
+}
+
+.preview {
+  bottom: 40px;
+}
+
+.preview {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 50px;
+  padding: 30px;
+  padding-top: 15px;
+  overflow: auto;
+  display: none;
+  letter-spacing: 1px;
+}
+
+.preview::-webkit-scrollbar {
+  display: none;
+}
+
+.preview:hover::-webkit-scrollbar {
+  display: inherit;
+}
+
+.preview.is-side {
+  width: 50%;
+  left: 50%;
+  display: block;
+}
+
+.preview.is-readmode {
+  display: block;
+}
+
+.preview input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.3rem;
+}
+.preview a {
+  text-decoration: none;
+}
+
+.preview img {
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.preview .contains-task-list {
+  padding-left: 0;
+}
+
+.preview .task-list-item {
+  list-style: none;
 }
 </style>

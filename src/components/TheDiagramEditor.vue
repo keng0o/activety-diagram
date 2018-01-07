@@ -51,7 +51,16 @@ export default {
       const str = editSession.getValue();
       this.lines = editSession.getLength();
       this.words = str.replace(/\s*/g, "").length;
-      const result = Viz(str);
+
+      let result;
+      try {
+        result = Viz(`digraph D {
+        ${str}
+      }`);
+      } catch (e) {
+        console.error(e);
+      }
+
       if (!result) {
         return;
       }
@@ -61,7 +70,7 @@ export default {
         "image/svg+xml"
       ).documentElement;
       this.svg.id = "svg_output";
-      var svg = this.$refs.svg.querySelector("svg");
+      const svg = this.$refs.svg.querySelector("svg");
       if (svg) {
         this.$refs.svg.removeChild(svg);
       }

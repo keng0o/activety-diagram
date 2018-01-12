@@ -42,10 +42,17 @@ export default {
     editor.$blockScrolling = Infinity;
     editor.setShowPrintMargin(false);
     editor.setShowFoldWidgets(false);
+    editor.getSession().setTabSize(2);
+
     editor.focus();
 
-    editSession.setMode("ace/mode/dot");
     editSession.setUseWrapMode(true);
+    editSession.setMode("ace/mode/dot");
+    editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: true
+    });
 
     editSession.on("change", () => {
       const str = editSession.getValue();
@@ -54,7 +61,12 @@ export default {
 
       let result;
       try {
-        result = Viz(`digraph D {
+        result = Viz(`digraph graph_name {
+node [
+  shape = record,
+  fontname = "Migu 1M",
+  fontsize = 12,
+];
         ${str}
       }`);
       } catch (e) {

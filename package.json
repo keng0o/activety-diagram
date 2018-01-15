@@ -63,7 +63,8 @@
     "webpack": "^3.7.1",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-hot-middleware": "^2.19.1"
+    "webpack-hot-middleware": "^2.19.1",
+    "webpack-merge": "^4.1.1"
   },
   "jest": {
     "moduleNameMapper": {
@@ -74,7 +75,10 @@
       "src/utils/([^\\.]*)$": "<rootDir>/src/utils/$1.js",
       "static/([^\\.]*)$": "<rootDir>/static/$1.js"
     },
-    "moduleFileExtensions": ["js", "vue"],
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
@@ -84,5 +88,9 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

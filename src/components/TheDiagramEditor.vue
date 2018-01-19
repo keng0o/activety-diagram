@@ -61,14 +61,7 @@ export default {
 
       let result;
       try {
-        result = Viz(`digraph graph_name {
-node [
-  shape = record,
-  fontname = "Migu 1M",
-  fontsize = 12,
-];
-        ${str}
-      }`);
+        result = Viz(`digraph g {${str}}`);
       } catch (e) {
         console.error(e);
       }

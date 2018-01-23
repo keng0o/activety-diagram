@@ -1,5 +1,9 @@
 <template>
   <div>
+    <tool-bar
+      :isReadmode="isReadmode"
+      :isSideBySide="isSideBySide"
+      :callback="download" />
     <!-- Edit -->
     <div class="editor is-side"
       ref="editor" />
@@ -16,20 +20,37 @@
 
 <script>
 import content from "src/config/content";
+import ToolBar from "src/components/ToolBar";
 import BottomBar from "src/components/BottomBar";
 
 export default {
   name: "the-diagram-editor",
   components: {
+    ToolBar,
     BottomBar
   },
 
   data() {
     return {
+      result: "",
       lines: 0,
       words: 0,
-      svg: null
+      svg: null,
+      isReadmode: true,
+      isSideBySide: true
     };
+  },
+
+  methods: {
+    download() {
+      const png = Viz.svgXmlToPngImageElement(this.result);
+      const aTag = document.createElement("a");
+      const blob = new Blob([this.image]);
+      aTag.download = "diaglam.png";
+      aTag.href = png;
+      aTag.click();
+      URL.revokeObjectURL(png);
+    }
   },
 
   mounted() {
@@ -59,19 +80,18 @@ export default {
       this.lines = editSession.getLength();
       this.words = str.replace(/\s*/g, "").length;
 
-      let result;
       try {
-        result = Viz(`digraph g {${str}}`);
+        this.result = Viz(`digraph g {${str}}`);
       } catch (e) {
         console.error(e);
       }
 
-      if (!result) {
+      if (!this.result) {
         return;
       }
 
       this.svg = parser.parseFromString(
-        result,
+        this.result,
         "image/svg+xml"
       ).documentElement;
       this.svg.id = "svg_output";
@@ -102,7 +122,7 @@ export default {
   opacity: 1;
 }
 .is-side {
-  width: 50%;
+  width: 40%;
   border: 1px dashed #bbb;
   border-bottom: 0;
   border-top-width: 0;
@@ -134,7 +154,7 @@ export default {
 }
 
 .preview.is-side {
-  width: 50%;
+  width: 60%;
   left: 50%;
   display: block;
 }

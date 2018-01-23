@@ -21,7 +21,7 @@ snippet graph\n\
 	graph [\n\
 		labelloc = \"${1:t}\",//ラベル位置 t=top, b=bottom, c=centered\n\
 		labeljust = \"${2:c}\",//ラベル位置 r=right-justified, l=left-justified\n\
-		bgcolor = \"${3:#999999}\",\n\
+		bgcolor = \"${3:#0000009}\",\n\
 		fontcolor = \"${4:white}\",\n\
 		fontsize = ${5:18},\n\
 		style = \"${6:filled}\",\n\

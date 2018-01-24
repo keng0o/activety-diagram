@@ -1,132 +1,44 @@
 export default `
-  graph [
-  rankdir = "LR"
-  ];
-  node [
-  fontsize = "16"
-  shape = "ellipse"
-  ];
-  edge [
-  ];
-  "node0" [
-  label = "<f0> 0x10ba8| <f1>"
-  shape = "record"
-  ];
-  "node1" [
-  label = "<f0> 0xf7fc4380| <f1> | <f2> |-1"
-  shape = "record"
-  ];
-  "node2" [
-  label = "<f0> 0xf7fc44b8| | |2"
-  shape = "record"
-  ];
-  "node3" [
-  label = "<f0> 3.43322790286038071e-06|44.79998779296875|0"
-  shape = "record"
-  ];
-  "node4" [
-  label = "<f0> 0xf7fc4380| <f1> | <f2> |2"
-  shape = "record"
-  ];
-  "node5" [
-  label = "<f0> (nil)| | |-1"
-  shape = "record"
-  ];
-  "node6" [
-  label = "<f0> 0xf7fc4380| <f1> | <f2> |1"
-  shape = "record"
-  ];
-  "node7" [
-  label = "<f0> 0xf7fc4380| <f1> | <f2> |2"
-  shape = "record"
-  ];
-  "node8" [
-  label = "<f0> (nil)| | |-1"
-  shape = "record"
-  ];
-  "node9" [
-  label = "<f0> (nil)| | |-1"
-  shape = "record"
-  ];
-  "node10" [
-  label = "<f0> (nil)| <f1> | <f2> |-1"
-  shape = "record"
-  ];
-  "node11" [
-  label = "<f0> (nil)| <f1> | <f2> |-1"
-  shape = "record"
-  ];
-  "node12" [
-  label = "<f0> 0xf7fc43e0| | |1"
-  shape = "record"
-  ];
-  "node0":f0 -> "node1":f0 [
-  id = 0
-  ];
-  "node0":f1 -> "node2":f0 [
-  id = 1
-  ];
-  "node1":f0 -> "node3":f0 [
-  id = 2
-  ];
-  "node1":f1 -> "node4":f0 [
-  id = 3
-  ];
-  "node1":f2 -> "node5":f0 [
-  id = 4
-  ];
-  "node4":f0 -> "node3":f0 [
-  id = 5
-  ];
-  "node4":f1 -> "node6":f0 [
-  id = 6
-  ];
-  "node4":f2 -> "node10":f0 [
-  id = 7
-  ];
-  "node6":f0 -> "node3":f0 [
-  id = 8
-  ];
-  "node6":f1 -> "node7":f0 [
-  id = 9
-  ];
-  "node6":f2 -> "node9":f0 [
-  id = 10
-  ];
-  "node7":f0 -> "node3":f0 [
-  id = 11
-  ];
-  "node7":f1 -> "node1":f0 [
-  id = 12
-  ];
-  "node7":f2 -> "node8":f0 [
-  id = 13
-  ];
-  "node10":f1 -> "node11":f0 [
-  id = 14
-  ];
-  "node10":f2 -> "node12":f0 [
-  id = 15
-  ];
-  "node11":f2 -> "node1":f0 [
-  id = 16
-  ];
+a [label = "<pl>left|center|<pr>right"];
+b [label = "<pl>left|<pc>center|<pr>right"];
+c [label = "left|center|<pr>right"];
+d [label = "{left|{<pc>center|{top|middle|bottom}}|right}}"];
+e [label = "{top|<pm>middle|bottom}"];
+
+// edge define
+a:pl -> b:pl [ label = "a-b", weight = 2.0];
+a:pr -> c:pr [label = "a-g", weight = 1.0];
+b:pc -> e:pm [label = "b-e"];
+c -> d:pc [label = "g-d"]
+triangle [label = "triangle", shape = triangle];
+plaintext [label = "plaintext", shape = plaintext];
+plain [label = "plain", shape = plain];
+diamond [label = "diamond", shape = diamond];
+trapezium [label = "trapezium", shape = trapezium];
+parallelogram [label = "parallelogram", shape = parallelogram];
+house [label = "house", shape = house];
+house [label = "house", shape = house];
+ellipse [label = "ellipse", shape = ellipse];
+aval [label = "oval", shape = oval];
+circle [label = "circle",shape = circle];
+point [label = "point", shape = point];
+egg [label = "egg", shape = egg];
 `;
 /*
-  export default `
+export default `
 subgraph cluster_0 {
-  style=filled;
-  color=lightgrey;
-  node [style=filled,color=white];
-  a0 -> a1 -> a2 -> a3;
-  label = "process #1";
+style=filled;
+color=lightgrey;
+node [style=filled,color=white];
+a0 -> a1 -> a2 -> a3;
+label = "process #1";
 }
 
 subgraph cluster_1 {
-  node [style=filled];
-  b0 -> b1 -> b2 -> b3;
-  label = "process #2";
-  color=blue
+node [style=filled];
+b0 -> b1 -> b2 -> b3;
+label = "process #2";
+color=blue
 }
 start -> a0;
 start -> b0;

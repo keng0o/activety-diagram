@@ -5,8 +5,11 @@
         'is-readmode': isReadmode
       }">
       <div class="icons">
+        <a class="icon-book"
+          @click="example()">example
+        </a>
         <a class="icon-download-cloud"
-          @click="callback()">download
+          @click="download()">download
         </a>
       </div>
 
@@ -30,7 +33,10 @@ export default {
       type: Boolean,
       default: true
     },
-    callback: {
+    download: {
+      type: Function
+    },
+    example: {
       type: Function
     }
   },
@@ -74,16 +80,19 @@ export default {
   margin-right: 20px;
   text-align: right;
 }
+.icons > a {
+  padding-right: 10px;
+  padding-left: 10px;
+}
 .editor-toolbar {
   width: 100%;
-  height: 50px;
+  height: 40px;
   padding: 10px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
   box-sizing: border-box;
   user-select: none;
-  background: #fcfcfc;
   border: 0;
   border-bottom: 1px dashed #bbb;
   position: fixed;
@@ -93,7 +102,7 @@ export default {
   z-index: 9;
 }
 
-.editor-toolbar:after,
+/* .editor-toolbar:after,
 .editor-toolbar:before {
   display: block;
   content: " ";
@@ -106,7 +115,7 @@ export default {
 
 .editor-toolbar:after {
   margin-top: 8px;
-}
+} */
 
 .editor-toolbar:hover,
 .editor-wrapper input.title:focus,
@@ -116,7 +125,7 @@ export default {
 
 .editor-toolbar::before {
   width: 20px;
-  height: 50px;
+  height: 40px;
   background: -moz-linear-gradient(
     left,
     rgba(255, 255, 255, 1) 0%,
@@ -158,7 +167,7 @@ export default {
 
 .editor-toolbar::after {
   width: 20px;
-  height: 50px;
+  height: 40px;
   background: -moz-linear-gradient(
     left,
     rgba(255, 255, 255, 0) 0%,
@@ -198,7 +207,7 @@ export default {
   padding: 0;
 }
 
-.editor-toolbar a {
+.icons a {
   display: inline-block;
   text-align: center;
   text-decoration: none !important;
@@ -209,13 +218,13 @@ export default {
   cursor: pointer;
 }
 
-.editor-toolbar a.active,
-.editor-toolbar a:hover {
+.icons a.active,
+.icons a:hover {
   background: #fcfcfc;
   border-color: #95a5a6;
 }
 
-.editor-toolbar a:before {
+.icons a:before {
   line-height: 30px;
 }
 

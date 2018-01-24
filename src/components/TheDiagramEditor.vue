@@ -3,13 +3,18 @@
     <tool-bar
       :isReadmode="isReadmode"
       :isSideBySide="isSideBySide"
-      :callback="download" />
+      :download="download"
+      :example="example" />
     <!-- Edit -->
     <div class="editor is-side"
       ref="editor" />
     <!-- Preview  -->
     <div class="preview is-side"
       ref="svg" />
+
+    <div class="toc-preview" v-show="showToc">
+      ここにエグザンプル的な何か
+    </div>
 
     <!-- BottomBar -->
     <bottom-bar :lines="lines"
@@ -32,6 +37,7 @@ export default {
 
   data() {
     return {
+      showToc: false,
       result: "",
       lines: 0,
       words: 0,
@@ -42,6 +48,9 @@ export default {
   },
 
   methods: {
+    example() {
+      this.showToc = !this.showToc;
+    },
     download() {
       const png = Viz.svgXmlToPngImageElement(this.result);
       const aTag = document.createElement("a");
@@ -116,7 +125,7 @@ export default {
   position: fixed !important;
   left: 0;
   right: 0;
-  top: 50px;
+  top: 40px;
   bottom: 40px;
   font-size: 14px !important;
   opacity: 1;
@@ -137,8 +146,7 @@ export default {
   position: fixed;
   left: 0;
   right: 0;
-  top: 50px;
-  padding: 30px;
+  top: 40px;
   padding-top: 15px;
   overflow: auto;
   display: none;
@@ -155,7 +163,7 @@ export default {
 
 .preview.is-side {
   width: 60%;
-  left: 50%;
+  left: 40%;
   display: block;
 }
 
@@ -183,5 +191,19 @@ export default {
 
 .preview .task-list-item {
   list-style: none;
+}
+
+.toc-preview {
+  position: absolute;
+  background: white;
+  top: 40px;
+  bottom: 0;
+  right: 0;
+  border: 1px dashed #ccc;
+  overflow: auto;
+  width: 300px;
+  z-index: 2;
+  padding: 18px;
+  padding-bottom: 30px;
 }
 </style>
